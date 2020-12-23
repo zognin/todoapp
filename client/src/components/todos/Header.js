@@ -1,7 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Header = () => {
+  let history = useHistory();
+  let headerData = JSON.parse(sessionStorage.userData);
+
+  const handleSignout = (e) => {
+    e.preventDefault();
+    console.log(headerData);
+    axios
+      .delete('http://localhost:3000/api/v1/auth/sign_out', {
+        headers: headerData,
+      })
+      .then((resp) => {
+        console.log(resp);
+        sessionStorage.removeItem('userData');
+        history.push(`/login`);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
   return (
     <div>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
@@ -26,7 +47,12 @@ const Header = () => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link to='#' className='nav-link active' aria-current='page'>
+                <Link
+                  to='#'
+                  className='nav-link active'
+                  aria-current='page'
+                  onClick={handleSignout}
+                >
                   Sign Out
                 </Link>
               </li>

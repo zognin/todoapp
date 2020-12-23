@@ -1,42 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const Signup = () => {
+const ResetPassword = () => {
   const [user, setUser] = useState({
-    email: '',
     password: '',
     password_confirmation: '',
   });
 
   const [valid, setValid] = useState({
-    email: false,
     password: false,
     password_confirmation: false,
   });
-  const [userAlreadyExists, setUserAlreadyExists] = useState(false);
   const [error, setError] = useState(false);
   const [submitError, setSubmitError] = useState(false);
-
+  const [headerData, setHeaderData] = useState({});
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({ ...user, [name]: value });
   };
 
-  let pattern = new RegExp(
-    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-  );
+  useEffect(() => {
+    const url = window.location.href;
+    const queryStringIndex = url.indexOf('?');
+    const queryString = url.substring(queryStringIndex + 1);
+    const queryStringParts = queryString.split('&');
+    var parameters = {};
+    queryStringParts.forEach((part) => {
+      var equalsIndex = part.indexOf('=');
+      var key, value;
+      key = part.substring(0, equalsIndex);
+      value = part.substring(equalsIndex + 1);
+      key = decodeURIComponent(key);
+      value = decodeURIComponent(value);
+      parameters[key] = value;
+    });
+    setHeaderData({
+      'access-token': parameters['access-token'],
+      client: parameters.client,
+      uid: parameters.uid,
+    });
+  }, []);
 
   useEffect(() => {
     if (
-      pattern.test(user.email) &&
       user.password.length >= 12 &&
       user.password === user.password_confirmation
     ) {
-      setValid({ email: true, password: true, password_confirmation: true });
-    } else if (!pattern.test(user.email)) {
-      setValid({ ...valid, email: false });
+      setValid({ password: true, password_confirmation: true });
     } else if (user.password.length < 12) {
       setValid({ ...valid, email: true, password: false });
     } else {
@@ -49,22 +61,21 @@ const Signup = () => {
   axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
   axios.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
-  const handleSignup = (e) => {
+  const handleReset = (e) => {
     e.preventDefault();
-    if (valid.email && valid.password && valid.password_confirmation) {
+    if (valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .post('http://localhost:3000/api/v1/auth', user)
+        .put('http://localhost:3000/api/v1/auth/password', null, {
+          params: user,
+          headers: headerData,
+        })
         .then((resp) => {
           history.push(`/login`);
         })
         .catch((err) => {
           console.log(err.response);
-          if (err.response.status === 422) {
-            setUserAlreadyExists(true);
-          } else {
-            setError(true);
-          }
+          setError(true);
         });
     } else {
       setSubmitError(true);
@@ -72,23 +83,7 @@ const Signup = () => {
   };
 
   return (
-    <section>
-      {userAlreadyExists && (
-        <div
-          className='alert alert-info alert-dismissible fade show'
-          role='alert'
-        >
-          User already exists
-          <button
-            type='button'
-            className='close'
-            aria-label='Close'
-            onClick={() => setUserAlreadyExists(false)}
-          >
-            <span aria-hidden='true'>&times;</span>
-          </button>
-        </div>
-      )}
+    <div>
       {submitError && (
         <div
           className='alert alert-danger alert-dismissible fade show'
@@ -121,28 +116,8 @@ const Signup = () => {
           </button>
         </div>
       )}
-      <h1>Sign Up</h1>
-      <br />
-      <form onSubmit={handleSignup}>
-        <div className='form-group'>
-          <label htmlFor='email' className='form-label'>
-            Email
-          </label>
-          <input
-            type='email'
-            className='form-control'
-            id='email'
-            name='email'
-            value={user.email}
-            onChange={handleChange}
-          ></input>
-          {!valid.email && (
-            <small id='passwordHelp' className='form-text text-muted'>
-              Please enter a valid email
-            </small>
-          )}
-        </div>
-        <br />
+      <h1>Reset Password</h1>
+      <form onSubmit={handleReset}>
         <div className='form-group'>
           <label htmlFor='password' className='form-label'>
             Password
@@ -180,15 +155,12 @@ const Signup = () => {
             </small>
           )}
         </div>
-        <br />
         <button type='submit' className='btn btn-primary'>
-          Sign up
+          Confirm
         </button>
       </form>
-      <br />
-      <Link to='/login'>Or log in if you have an account</Link>
-    </section>
+    </div>
   );
 };
 
-export default Signup;
+export default ResetPassword;

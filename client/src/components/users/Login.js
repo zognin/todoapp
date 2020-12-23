@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -11,11 +11,8 @@ const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  //   const csrfToken = document.querySelector('[name=csrfToken]').content;
-  //   axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
   axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
   axios.defaults.xsrfHeaderName = 'X-CSRF-Token';
-  //   axios.defaults.withCredentials = true;
 
   let history = useHistory();
 
@@ -46,7 +43,7 @@ const Login = () => {
   return (
     <section>
       <form onSubmit={handleLogin}>
-        <div className='mb3'>
+        <div className='form-group'>
           <label htmlFor='email' className='form-label'>
             Email
           </label>
@@ -59,7 +56,7 @@ const Login = () => {
             onChange={handleChange}
           ></input>
         </div>
-        <div className='mb3'>
+        <div className='form-group'>
           <label htmlFor='password' className='form-label'>
             Password
           </label>
@@ -77,6 +74,8 @@ const Login = () => {
           Log In
         </button>
       </form>
+      <br />
+      <Link to='/forgot-password'>Forgot Password?</Link>
     </section>
   );
 };

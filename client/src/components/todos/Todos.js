@@ -4,7 +4,6 @@ import axios from 'axios';
 const Todos = () => {
   const [items, setItems] = useState([]);
   let headerData = JSON.parse(sessionStorage.userData);
-  console.log(headerData);
 
   useEffect(() => {
     axios
@@ -13,7 +12,6 @@ const Todos = () => {
       })
       .then((res) => {
         const item = res.data.data;
-        console.log(item);
         setItems(item);
       })
       .catch((err) => {
