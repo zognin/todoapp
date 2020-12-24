@@ -5,7 +5,6 @@ import Header from './Header';
 const Home = () => {
   return (
     <div>
-      <h1>Home Page after user logs in</h1>
       <Header />
       <Todos />
     </div>

@@ -6,6 +6,9 @@ import Signup from './users/Signup';
 import Home from './todos/Home';
 import ForgotPassword from './users/ForgotPassword';
 import ResetPassword from './users/ResetPassword';
+import TodoCreate from './todos/TodoCreate';
+import Todo from './todos/Todo';
+import TodoEdit from './todos/TodoEdit';
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
         <Route exact path='/forgot-password' component={ForgotPassword} />
         <Route exact path='/reset-password' component={ResetPassword} />
         <Route exact path='/signup' component={Signup} />
-        <Route path='/home' component={Home} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/todo/new' component={TodoCreate} />
+        <Route exact path='/todo/:slug' component={Todo} />
+        <Route exact path='/todo/edit/:slug' component={TodoEdit} />
       </Switch>
     </Router>
   );

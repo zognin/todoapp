@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Search from './Search';
 
 const Todos = () => {
   const [items, setItems] = useState([]);
@@ -21,9 +23,19 @@ const Todos = () => {
 
   return (
     <div className='App'>
+      <Search />
       <ul>
         {items.map((item) => (
-          <li key={item.id}>{item.attributes.task}</li>
+          <li key={item.id}>
+            <Link
+              to={{
+                pathname: `/todo/${item.attributes.slug}`,
+                state: { slug: item.attributes.slug },
+              }}
+            >
+              {item.attributes.task}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

@@ -42,8 +42,12 @@ const Header = () => {
           <div className='collapse navbar-collapse' id='navbarNav'>
             <ul className='navbar-nav ml-auto'>
               <li className='nav-item'>
-                <Link to='#' className='nav-link active' aria-current='page'>
-                  Edit Profile
+                <Link
+                  to='/todo/new'
+                  className='nav-link active'
+                  aria-current='page'
+                >
+                  New Task
                 </Link>
               </li>
               <li className='nav-item'>

@@ -34,7 +34,7 @@ class Api::V1::TodosController < ApplicationController
     end
 
     def destroy
-        todo = Todo.find_by(slug: params[:slug])
+        todo = Todo.find_by(id: params[:id])
 
         if todo.destroy
             head :no_content
