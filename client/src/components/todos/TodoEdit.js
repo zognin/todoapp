@@ -95,7 +95,7 @@ const TodoEdit = (props) => {
   };
 
   return (
-    <section>
+    <div>
       <SuccessAlert isSuccessAlert={isSuccessAlert} />
       {isDeletingAlert && <div className='alert alert-danger'>Deleting...</div>}
       {isDeleteAlert && (
@@ -205,7 +205,7 @@ const TodoEdit = (props) => {
           Delete
         </button>
       </form>
-    </section>
+    </div>
   );
 };
 

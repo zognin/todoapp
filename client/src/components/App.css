@@ -1,38 +1,137 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body > #root > div {
+  height: 100vh;
+  background-image: linear-gradient(0deg, #adb7ff, #bcfcff);
+  font-family: 'Quicksand', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar {
+  background-color: white;
+  height: 12vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: #0c0c9f;
+}
+
+.navbar-title:hover {
+  text-decoration: none;
+  color: #0079c4;
+}
+
+.todolist {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.todolist-container {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: stretch;
+  flex: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.todolist-items {
+  height: 6vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding-left: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todolist-items:hover {
+  background-color: #ceedff;
+}
+
+.todolist-items-link {
+  color: black;
+}
+
+.todolist-items-link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.search-bar {
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5vh 0;
+}
+
+.search-bar > input {
+  border: none;
+  height: 100%;
+  width: 25%;
+  padding-left: 10px;
+}
+
+.search-bar > input:hover {
+  background-color: #f5f5f5;
+}
+
+.search-bar > input:focus {
+  border: 1px solid #0c0c9f;
+  background-color: white;
+}
+
+.search-icon {
+  background-color: white;
+  height: 100%;
+  padding: 8px;
+}
+
+.dropdown {
+  height: 100%;
+  align-items: stretch;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  background-color: #eff9ff;
+}
+
+.dropdown-button {
+  align-items: center;
+  display: flex;
+  padding: 11px 10px;
+}
+
+.dropdown-button:hover {
+  background-color: #ceedff;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #bcbcbc;
+  margin-left: 10px;
+}
+
+.dropdown-card {
+  width: inherit;
+  background-color: white;
+}
+
+.dropdown-options {
+  height: inherit;
+  padding: 11px 10px;
+  border-bottom: 1px solid #efefef;
+}
+
+.dropdown-options:hover {
+  background-color: #eff9ff;
 }

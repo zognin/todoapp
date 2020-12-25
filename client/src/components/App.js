@@ -1,5 +1,5 @@
 import React from 'react';
-import '../components/App.css';
+// import '../components/App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './users/Login';
 import Signup from './users/Signup';
@@ -9,6 +9,7 @@ import ResetPassword from './users/ResetPassword';
 import TodoCreate from './todos/TodoCreate';
 import Todo from './todos/Todo';
 import TodoEdit from './todos/TodoEdit';
+import './App.css';
 
 function App() {
   return (
