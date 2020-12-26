@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../App.css';
 import './Todo.css';
 import checkboxTicked from '../../images/check-box.png';
 import checkboxBlank from '../../images/blank-check-box.png';
@@ -48,11 +49,10 @@ const TodoCreate = () => {
   };
 
   return (
-    <section>
-      <SuccessAlert isSuccessAlert={isSuccessAlert} />
-      <h1>New Task</h1>
-      <br />
+    <div className='todo-form'>
       <form>
+        <SuccessAlert isSuccessAlert={isSuccessAlert} />
+        <h1>New Task</h1>
         <div className='form-group'>
           <label htmlFor='task' className='form-label'>
             Task
@@ -128,11 +128,12 @@ const TodoCreate = () => {
         </div>
         <br />
         <Back />
+        <br />
         <button type='submit' className='btn btn-primary' onClick={handleSave}>
           Save Changes
         </button>
       </form>
-    </section>
+    </div>
   );
 };
 

@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import '../App.css';
-import { searchOptions } from './SearchOptions';
 
-const Dropdown = ({ handleSelect, showCard, setShowCard, selected }) => {
+const Dropdown = ({
+  handleSelect,
+  showCard,
+  setShowCard,
+  selected,
+  searchOptions,
+}) => {
   return (
     <div className='dropdown'>
       <div className='dropdown-button' onClick={() => setShowCard(!showCard)}>
-        <span className='dropdown-selected'>{selected}</span>
+        <div className='dropdown-selected'>{selected}</div>
         <div className='arrow-down'></div>
       </div>
       {showCard && (

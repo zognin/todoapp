@@ -7,14 +7,14 @@ import checkboxBlank from '../../images/blank-check-box.png';
 import Back from './Back';
 
 const Todo = (props) => {
-  const slug = props.location.state.slug;
-  sessionStorage.setItem('slug', slug);
+  const id = props.location.state.id;
+  sessionStorage.setItem('id', id);
   let headerData = JSON.parse(sessionStorage.userData);
   const [item, setItem] = useState({});
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/todos/${slug}`, {
+      .get(`http://localhost:3000/api/v1/todos/${id}`, {
         headers: headerData,
       })
       .then((resp) => {
@@ -26,7 +26,7 @@ const Todo = (props) => {
   let history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push({ pathname: `/todo/edit/${slug}`, state: { slug: slug } });
+    history.push({ pathname: `/todo/edit/${id}`, state: { id: id } });
   };
 
   return (

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import SearchIcon from '../../images/search.png';
+import SearchIcon from '../svg/SearchIcon';
 import Dropdown from './Dropdown';
 import { searchOptions } from './SearchOptions';
 
-const Search = ({ items, itemsDisplayed, setItemsDisplayed }) => {
+const Search = ({ items, setItemsDisplayed }) => {
   const [input, setInput] = useState('');
   const [showCard, setShowCard] = useState(false);
   const [selected, setSelected] = useState(searchOptions[0]);
@@ -77,12 +77,13 @@ const Search = ({ items, itemsDisplayed, setItemsDisplayed }) => {
           value={input}
           onChange={handleChange}
         ></input>
-        <img src={SearchIcon} className='search-icon' alt='search'></img>
+        <SearchIcon />
         <Dropdown
           handleSelect={handleSelect}
           showCard={showCard}
           setShowCard={setShowCard}
           selected={selected}
+          searchOptions={searchOptions}
         />
       </div>
     </div>

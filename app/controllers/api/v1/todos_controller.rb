@@ -8,7 +8,7 @@ class Api::V1::TodosController < ApplicationController
     end
 
     def show
-        todo = Todo.find_by(slug: params[:slug])
+        todo = Todo.find_by(id: params[:id])
 
         render json: TodoSerializer.new(todo).serializable_hash.to_json
     end
@@ -24,7 +24,7 @@ class Api::V1::TodosController < ApplicationController
     end
 
     def update
-        todo = Todo.find_by(slug: params[:slug])
+        todo = Todo.find_by(id: params[:id])
 
         if todo.update(todo_params)
             render json: TodoSerializer.new(todo).serializable_hash.to_json

@@ -7,6 +7,7 @@ body > #root > div {
   height: 100vh;
   background-image: linear-gradient(0deg, #adb7ff, #bcfcff);
   font-family: 'Quicksand', sans-serif;
+  overflow: hidden;
 }
 
 .navbar {
@@ -32,12 +33,14 @@ body > #root > div {
 }
 
 .todolist-container {
-  width: 25%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: stretch;
   flex: 1;
+  max-width: 80vh;
+  max-height: 500px;
+  overflow: auto;
 }
 
 .todolist-items {
@@ -52,6 +55,7 @@ body > #root > div {
 
 .todolist-items:hover {
   background-color: #ceedff;
+  text-decoration: none;
 }
 
 .todolist-items-link {
@@ -63,12 +67,54 @@ body > #root > div {
   text-decoration: none;
 }
 
+.todolist-items-category {
+  color: gray;
+  margin-left: 10px;
+}
+
+.todolist-items-category:hover {
+  color: gray;
+  text-decoration: none;
+}
+
+.todolist-checkbox {
+  border: 6px solid #0c0c9f;
+  height: 6vh;
+  width: 6vh;
+  background-color: white;
+}
+
+.todolist-checkbox-ticked {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.todolist-icons-container {
+  margin-left: auto;
+  display: flex;
+}
+
+.todolist-icons-container > button {
+  margin: auto 0;
+  margin-right: 4px;
+}
+
+svg,
+img {
+  display: block;
+  width: 6vh;
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
+}
+
 .search-bar {
   height: 6vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5vh 0;
+  margin-top: 5vh;
 }
 
 .search-bar > input {
@@ -90,7 +136,34 @@ body > #root > div {
 .search-icon {
   background-color: white;
   height: 100%;
-  padding: 8px;
+  padding: 5px;
+}
+
+.viewbar-container {
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  margin: 2vh 0;
+}
+
+.viewbar {
+  display: flex;
+  align-items: center;
+  background-color: #eff9ff;
+  height: inherit;
+  width: 35%;
+}
+
+.view-text {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.add-button {
+  height: 100%;
 }
 
 .dropdown {
@@ -100,6 +173,10 @@ body > #root > div {
   display: flex;
   flex-direction: column;
   background-color: #eff9ff;
+}
+
+.dropdown-selected {
+  padding-right: 8px;
 }
 
 .dropdown-button {
@@ -115,10 +192,10 @@ body > #root > div {
 .arrow-down {
   width: 0;
   height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
   border-top: 8px solid #bcbcbc;
-  margin-left: 10px;
+  margin-left: auto;
 }
 
 .dropdown-card {
@@ -134,4 +211,19 @@ body > #root > div {
 
 .dropdown-options:hover {
   background-color: #eff9ff;
+}
+
+.todo-form {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80vh;
+  margin-top: 5vh;
+  max-height: 700px;
+  max-width: 80vh;
+  overflow: auto;
 }

@@ -5,6 +5,8 @@ import checkboxTicked from '../../images/check-box.png';
 import checkboxBlank from '../../images/blank-check-box.png';
 import { useHistory } from 'react-router-dom';
 import SuccessAlert from './SuccessAlert';
+import DeleteAlert from './DeleteAlert';
+import DeletingAlert from './DeletingAlert';
 import Back from './Back';
 
 const TodoEdit = (props) => {
@@ -17,21 +19,18 @@ const TodoEdit = (props) => {
     is_priority: false,
     id: '',
   });
-  // let id;
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
-  const slug = sessionStorage.slug;
+  const id = props.location.state.id;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/todos/${slug}`, {
+      .get(`http://localhost:3000/api/v1/todos/${id}`, {
         headers: headerData,
       })
       .then((resp) => {
         setItem(resp.data.data.attributes);
-        // id = resp.data.data.id;
-        // console.log(resp);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -53,7 +52,7 @@ const TodoEdit = (props) => {
     e.preventDefault();
     axios
       .put(
-        `http://localhost:3000/api/v1/todos/${slug}`,
+        `http://localhost:3000/api/v1/todos/${id}`,
         { todo: item },
         {
           headers: headerData,
@@ -80,7 +79,7 @@ const TodoEdit = (props) => {
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
     axios
-      .delete(`http://localhost:3000/api/v1/todos/${slug}`, {
+      .delete(`http://localhost:3000/api/v1/todos/${id}`, {
         headers: headerData,
         data: item,
       })
@@ -95,30 +94,16 @@ const TodoEdit = (props) => {
   };
 
   return (
-    <div>
-      <SuccessAlert isSuccessAlert={isSuccessAlert} />
-      {isDeletingAlert && <div className='alert alert-danger'>Deleting...</div>}
-      {isDeleteAlert && (
-        <div className='alert alert-secondary'>
-          <h5 className='alert-heading'>Delete this task?</h5>
-          <p>You will not be able to undo this action</p>
-          <hr />
-          <button className='btn btn-primary' onClick={handleDelete}>
-            Yes
-          </button>
-          <button
-            className='btn btn-dark'
-            onClick={() => {
-              setIsDeleteAlert(false);
-            }}
-          >
-            No
-          </button>
-        </div>
-      )}
-      <h1>Edit</h1>
-      <br />
+    <div className='todo-form'>
       <form>
+        <SuccessAlert isSuccessAlert={isSuccessAlert} />
+        <DeletingAlert isDeletingAlert={isDeletingAlert} />
+        <DeleteAlert
+          isDeleteAlert={isDeleteAlert}
+          handleDelete={handleDelete}
+          setIsDeleteAlert={setIsDeleteAlert}
+        />
+        <h1>Edit</h1>
         <div className='form-group'>
           <label htmlFor='task' className='form-label'>
             Task
@@ -193,10 +178,12 @@ const TodoEdit = (props) => {
           )}
         </div>
         <br />
-        <Back />
         <button type='submit' className='btn btn-primary' onClick={handleSave}>
           Save Changes
         </button>
+        <br />
+        <Back />
+        <br />
         <button
           type='submit'
           className='btn btn-dark'

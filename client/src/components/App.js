@@ -21,8 +21,8 @@ function App() {
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/home' component={Home} />
         <Route exact path='/todo/new' component={TodoCreate} />
-        <Route exact path='/todo/:slug' component={Todo} />
-        <Route exact path='/todo/edit/:slug' component={TodoEdit} />
+        <Route exact path='/todo/:id' component={Todo} />
+        <Route exact path='/todo/edit/:id' component={TodoEdit} />
       </Switch>
     </Router>
   );
