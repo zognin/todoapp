@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import '../App.css';
 
 const ResetPassword = () => {
   const [user, setUser] = useState({
@@ -83,7 +84,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
+    <div className='user-auth'>
       {submitError && (
         <div
           className='alert alert-danger alert-dismissible fade show'
@@ -116,8 +117,9 @@ const ResetPassword = () => {
           </button>
         </div>
       )}
-      <h1>Reset Password</h1>
+
       <form onSubmit={handleReset}>
+        <h1>Reset Password</h1>
         <div className='form-group'>
           <label htmlFor='password' className='form-label'>
             Password

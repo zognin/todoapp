@@ -31,28 +31,14 @@ const Header = () => {
           <Link to='/home' className='navbar-title'>
             My To Do List
           </Link>
-          <div>
-            <ul className='navbar-nav ml-auto'>
-              <li className='nav-item'>
-                <Link
-                  to='/todo/new'
-                  className='nav-link active'
-                  aria-current='page'
-                >
-                  New Task
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='#'
-                  className='nav-link active'
-                  aria-current='page'
-                  onClick={handleSignout}
-                >
-                  Sign Out
-                </Link>
-              </li>
-            </ul>
+          <div className='navbar-links-container'>
+            <Link to='/todo/new' aria-current='page'>
+              <div className='navbar-link'>New Task</div>
+            </Link>
+
+            <Link to='#' aria-current='page' onClick={handleSignout}>
+              <div className='navbar-link'>Sign Out</div>
+            </Link>
           </div>
         </div>
       </nav>

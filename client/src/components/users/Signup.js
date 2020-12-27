@@ -72,7 +72,7 @@ const Signup = () => {
   };
 
   return (
-    <section>
+    <div className='user-auth'>
       {userAlreadyExists && (
         <div
           className='alert alert-info alert-dismissible fade show'
@@ -121,9 +121,9 @@ const Signup = () => {
           </button>
         </div>
       )}
-      <h1>Sign Up</h1>
-      <br />
       <form onSubmit={handleSignup}>
+        <h1>Sign Up</h1>
+        <br />
         <div className='form-group'>
           <label htmlFor='email' className='form-label'>
             Email
@@ -184,10 +184,10 @@ const Signup = () => {
         <button type='submit' className='btn btn-primary'>
           Sign up
         </button>
+        <br />
+        <Link to='/login'>Or log in if you have an account</Link>
       </form>
-      <br />
-      <Link to='/login'>Or log in if you have an account</Link>
-    </section>
+    </div>
   );
 };
 

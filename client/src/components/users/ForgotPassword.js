@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../App.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+  const [isSent, setIsSent] = useState(false);
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -13,6 +15,7 @@ const ForgotPassword = () => {
 
   const handleReset = (e) => {
     e.preventDefault();
+    setIsSent(true);
     const payload = {
       email: email,
       redirect_url: 'http://localhost:3001/reset-password',
@@ -26,14 +29,30 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
-      <h1>Forgot Password</h1>
-      <br />
-      <p>
-        Please enter your email. We will send you an email with instructions to
-        reset your password.
-      </p>
+    <div className='user-auth'>
+      {isSent && (
+        <div
+          className='alert alert-info alert-dismissible fade show'
+          role='alert'
+        >
+          Email sent. Please check your email.
+          <button
+            type='button'
+            className='close'
+            aria-label='Close'
+            onClick={() => setIsSent(false)}
+          >
+            <span aria-hidden='true'>&times;</span>
+          </button>
+        </div>
+      )}
       <form onSubmit={handleReset}>
+        <h1>Forgot Password</h1>
+        <br />
+        <p>
+          Please enter your email. We will send you an email with instructions
+          to reset your password.
+        </p>
         <div className='form-group'>
           <label htmlFor='email' className='form-label'>
             Email

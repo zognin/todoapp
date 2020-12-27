@@ -4,13 +4,16 @@ import Dropdown from './Dropdown';
 import AddButton from '../svg/AddButton';
 import DeleteAlert from './DeleteAlert';
 
-const Viewbar = ({ items, setItemsDisplayed }) => {
+const Viewbar = ({
+  items,
+  setItemsDisplayed,
+  setIsDeleteAlert,
+  setDeleteData,
+}) => {
   let categoriesToAdd = ['All', 'Priority', 'Completed'];
   const [viewOptions, setViewOptions] = useState(categoriesToAdd);
   const [showCard, setShowCard] = useState(false);
   const [selected, setSelected] = useState(viewOptions[0]);
-  const [deleteData, setDeleteData] = useState({ id: '' });
-  const [isDeleteAlert, setIsDeleteAlert] = useState(false);
 
   useEffect(() => {
     categoriesToAdd = ['All', 'Priority', 'Completed'];

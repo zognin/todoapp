@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../App.css';
-import './Todo.css';
 import checkboxTicked from '../../images/check-box.png';
 import checkboxBlank from '../../images/blank-check-box.png';
 import { useHistory } from 'react-router-dom';
@@ -127,11 +126,11 @@ const TodoCreate = () => {
           )}
         </div>
         <br />
-        <Back />
-        <br />
         <button type='submit' className='btn btn-primary' onClick={handleSave}>
           Save Changes
         </button>
+        <br />
+        <Back />
       </form>
     </div>
   );

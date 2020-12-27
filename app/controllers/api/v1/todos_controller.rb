@@ -43,6 +43,16 @@ class Api::V1::TodosController < ApplicationController
         end
     end
 
+    def destroy_multiple
+        todos = Todo.where(:id => params[:id])
+
+        if todos.destroy_all
+            head :no_content
+        else 
+            render json: {error: todos.errors.messages}
+        end
+    end
+
     private
 
     def todo_params

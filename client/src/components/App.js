@@ -15,6 +15,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route exact path='/' component={Login} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/forgot-password' component={ForgotPassword} />
         <Route exact path='/reset-password' component={ResetPassword} />

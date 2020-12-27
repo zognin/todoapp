@@ -68,13 +68,30 @@ const Todos = () => {
     e.preventDefault();
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
-    axios
-      .delete(`http://localhost:3000/api/v1/todos/${deleteData.id}`, {
-        headers: headerData,
-        data: deleteData,
-      })
-      .then((resp) => {})
-      .catch((err) => console.log(err.response));
+    if (Array.isArray(deleteData.id)) {
+      axios
+        .post(
+          `http://localhost:3000/api/v1/todos/destroy_multiple`,
+          deleteData,
+          {
+            headers: headerData,
+          }
+        )
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    } else {
+      axios
+        .delete(`http://localhost:3000/api/v1/todos/${deleteData.id}`, {
+          headers: headerData,
+          data: deleteData,
+        })
+        .then((resp) => {})
+        .catch((err) => console.log(err.response));
+    }
     setTimeout(() => {
       setIsDeletingAlert(false);
       setDeleteData({ id: '' });
@@ -97,9 +114,7 @@ const Todos = () => {
       />
       <Viewbar
         items={items}
-        itemsDisplayed={itemsDisplayed}
         setItemsDisplayed={setItemsDisplayed}
-        deleteData={deleteData}
         setDeleteData={setDeleteData}
         setIsDeleteAlert={setIsDeleteAlert}
       />

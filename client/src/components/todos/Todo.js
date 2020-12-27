@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import './Todo.css';
+import '../App.css';
 import checkboxTicked from '../../images/check-box.png';
 import checkboxBlank from '../../images/blank-check-box.png';
 import Back from './Back';

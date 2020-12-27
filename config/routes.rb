@@ -10,6 +10,7 @@ Rails.application.routes.draw do
           passwords: 'api/v1/devise_token_auth/passwords'
         }
       resources :todos, param: :id
+      post '/todos/destroy_multiple' => 'todos#destroy_multiple'
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

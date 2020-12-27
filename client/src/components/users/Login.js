@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
+import '../App.css';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -41,8 +42,14 @@ const Login = () => {
   };
 
   return (
-    <section>
+    <div className='user-auth'>
       <form onSubmit={handleLogin}>
+        <div>
+          <h1>To Do App</h1>
+        </div>
+        <br />
+        <h3>Login</h3>
+        <br />
         <div className='form-group'>
           <label htmlFor='email' className='form-label'>
             Email
@@ -73,12 +80,12 @@ const Login = () => {
         <button type='submit' className='btn btn-primary'>
           Log In
         </button>
+        <br />
+        <Link to='/signup'>Create Account</Link>
+        <br />
+        <Link to='/forgot-password'>Forgot Password?</Link>
       </form>
-      <br />
-      <Link to='/signup'>Create Account</Link>
-      <br />
-      <Link to='/forgot-password'>Forgot Password?</Link>
-    </section>
+    </div>
   );
 };
 
