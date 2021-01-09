@@ -3,6 +3,8 @@ import axios from 'axios';
 import '../App.css';
 import checkboxTicked from '../../images/check-box.png';
 import checkboxBlank from '../../images/blank-check-box.png';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { useHistory } from 'react-router-dom';
 import SuccessAlert from './SuccessAlert';
 import DeleteAlert from './DeleteAlert';
@@ -11,14 +13,57 @@ import Back from './Back';
 
 const TodoEdit = (props) => {
   let headerData = JSON.parse(sessionStorage.userData);
+  const initialDate = new Date();
+  const initialISODate = initialDate.toISOString();
+
   const [item, setItem] = useState({
     task: '',
     description: '',
     category: '',
+    start_time: initialISODate,
+    end_time: initialISODate,
     is_completed: false,
     is_priority: false,
     id: '',
   });
+
+  const formatLocalTime = (isoDateTime) => {
+    const datetime = new Date(isoDateTime);
+    const hours = datetime.getHours();
+    const minutes = datetime.getMinutes();
+    const hoursStr =
+      hours <= 9 ? '0' + hours.toString().concat() : hours.toString();
+    const minutesStr =
+      minutes <= 9 ? '0' + minutes.toString() : minutes.toString();
+    return hoursStr + ':' + minutesStr;
+  };
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [startTime, setStartTime] = useState('09:00');
+  const [endDate, setEndDate] = useState(new Date());
+  const [endTime, setEndTime] = useState('10:00');
+
+  useEffect(() => {
+    const startDateTime = formatDate(startDate, startTime);
+    const utcString = startDateTime.toISOString();
+    setItem({ ...item, start_time: utcString });
+  }, [startDate, startTime]);
+
+  useEffect(() => {
+    const endDateTime = formatDate(endDate, endTime);
+    const utcString = endDateTime.toISOString();
+    setItem({ ...item, end_time: utcString });
+  }, [endDate, endTime]);
+
+  const formatDate = (datetime, time) => {
+    const hour = time.slice(0, 2);
+    const minutes = time.slice(3, 5);
+    datetime.setHours(hour);
+    datetime.setMinutes(minutes);
+    datetime.setSeconds(0);
+    return datetime;
+  };
+
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
@@ -83,9 +128,7 @@ const TodoEdit = (props) => {
         headers: headerData,
         data: item,
       })
-      .then((resp) => {
-        console.log(resp);
-      })
+      .then((resp) => {})
       .catch((err) => console.log(err.response));
     setTimeout(() => {
       setIsDeletingAlert(false);
@@ -142,6 +185,41 @@ const TodoEdit = (props) => {
             value={item.category}
             onChange={handleChange}
           ></input>
+        </div>
+        <div>
+          <label htmlFor='start-date' className='form-label'>
+            Start
+          </label>
+          <Calendar
+            onChange={setStartDate}
+            value={new Date(item.start_time)}
+            onClickDay={(startDate, e) => setStartDate(startDate)}
+          />
+          <input
+            type='time'
+            onChange={(e) => {
+              setStartTime(e.target.value);
+            }}
+            value={formatLocalTime(item.start_time)}
+          />
+        </div>
+        <br />
+        <div>
+          <label htmlFor='end-date' className='form-label'>
+            End
+          </label>
+          <Calendar
+            onChange={setEndDate}
+            value={new Date(item.end_time)}
+            onClickDay={(endDate, e) => setEndDate(endDate)}
+          />
+          <input
+            type='time'
+            onChange={(e) => {
+              setEndTime(e.target.value);
+            }}
+            value={formatLocalTime(item.end_time)}
+          />
         </div>
         <br />
         <div onClick={handleCheckComplete}>

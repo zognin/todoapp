@@ -28,7 +28,7 @@ const TrashInactive = ({ handleDeleteClick, id }) => {
               transform='translate(1211 576)'
               fill='#bcbcbc'
               stroke='#bcbcbc'
-              stroke-width='8'
+              strokeWidth='8'
             >
               <rect width='81' height='81' stroke='none' id={id} />
               <rect x='4' y='4' width='73' height='73' fill='none' id={id} />
@@ -60,7 +60,7 @@ const TrashInactive = ({ handleDeleteClick, id }) => {
                 transform='translate(1314 761)'
                 fill='none'
                 stroke='#0c129f'
-                stroke-width='3'
+                strokeWidth='3'
               >
                 <rect width='42' height='9' rx='4.5' stroke='none' id={id} />
                 <rect
@@ -79,7 +79,7 @@ const TrashInactive = ({ handleDeleteClick, id }) => {
                 transform='translate(1328 755)'
                 fill='none'
                 stroke='#0c129f'
-                stroke-width='3'
+                strokeWidth='3'
               >
                 <rect width='14' height='9' rx='4.5' stroke='none' id={id} />
                 <rect
@@ -99,7 +99,7 @@ const TrashInactive = ({ handleDeleteClick, id }) => {
                 transform='translate(1331.5 774.641)'
                 fill='#0c129f'
                 stroke='#0c129f'
-                stroke-width='2'
+                strokeWidth='2'
               />
               <path
                 id='Path_2'
@@ -108,7 +108,7 @@ const TrashInactive = ({ handleDeleteClick, id }) => {
                 transform='translate(1338.988 774.641) rotate(11)'
                 fill='#0c129f'
                 stroke='#0c129f'
-                stroke-width='2'
+                strokeWidth='2'
               />
             </g>
           </g>

@@ -15,7 +15,6 @@ const Header = () => {
         headers: headerData,
       })
       .then((resp) => {
-        console.log(resp);
         sessionStorage.removeItem('userData');
         history.push(`/login`);
       })

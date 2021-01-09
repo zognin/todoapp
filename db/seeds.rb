@@ -33,6 +33,8 @@ todos = Todo.create!([
         is_completed: false,
         is_priority: true,
         user_id: 1,
+        start_time: DateTime.parse("01/01/2021 14:00"),
+        end_time: DateTime.parse("01/01/2021 16:00")
     },
     {
         task: 'Do homework',
@@ -41,6 +43,8 @@ todos = Todo.create!([
         is_completed: false,
         is_priority: true,
         user_id: 1,
+        start_time: DateTime.parse("01/01/2021 08:00"),
+        end_time: DateTime.parse("01/01/2021 10:00")
     },
     {
         task: 'Decorate room',

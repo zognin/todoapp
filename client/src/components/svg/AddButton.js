@@ -44,7 +44,7 @@ const AddButton = () => {
               transform='translate(1232 319)'
               fill='none'
               stroke='#0079c4'
-              stroke-width='6'
+              strokeWidth='6'
             >
               <circle cx='29.5' cy='29.5' r='29.5' stroke='none' />
               <circle cx='29.5' cy='29.5' r='26.5' fill='none' />

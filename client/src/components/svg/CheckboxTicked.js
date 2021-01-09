@@ -27,7 +27,7 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               transform='translate(1211 576)'
               fill='#ceedff'
               stroke='#0c129f'
-              stroke-width='8'
+              strokeWidth='8'
             >
               <rect width='81' height='81' stroke='none' id={id} />
               <rect x='4' y='4' width='73' height='73' fill='none' id={id} />
@@ -40,7 +40,7 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               transform='translate(1233.5 615.5)'
               fill='none'
               stroke='#0c129f'
-              stroke-width='8'
+              strokeWidth='8'
               id={id}
             />
             <line
@@ -51,7 +51,7 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               transform='translate(1243.5 602.5)'
               fill='none'
               stroke='#0c129f'
-              stroke-width='8'
+              strokeWidth='8'
               id={id}
             />
           </g>

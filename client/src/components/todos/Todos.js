@@ -10,29 +10,37 @@ import DeletingAlert from './DeletingAlert';
 import PriorityIcon from '../svg/PriorityIcon';
 import Viewbar from './Viewbar';
 
-const Todos = () => {
-  const [items, setItems] = useState([]);
-  const [itemsDisplayed, setItemsDisplayed] = useState([]);
+const Todos = ({
+  items,
+  setItems,
+  itemsDisplayed,
+  setItemsDisplayed,
+  isUpdate,
+  setIsUpdate,
+}) => {
+  // const [items, setItems] = useState([]);
+  // const [itemsDisplayed, setItemsDisplayed] = useState([]);
   let headerData = JSON.parse(sessionStorage.userData);
-  const [isUpdate, setIsUpdate] = useState(false);
+  // const [isUpdate, setIsUpdate] = useState(false);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
   const [deleteData, setDeleteData] = useState({ id: '' });
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/v1/todos`, {
-        headers: headerData,
-      })
-      .then((res) => {
-        const item = res.data.data;
-        setItems(item);
-        setItemsDisplayed(item);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isUpdate]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:3000/api/v1/todos`, {
+  //       headers: headerData,
+  //     })
+  //     .then((res) => {
+  //       const item = res.data.data;
+  //       setItems(item);
+  //       setItemsDisplayed(item);
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [isUpdate]);
 
   const toggleCheckbox = (e) => {
     e.preventDefault();
@@ -100,7 +108,7 @@ const Todos = () => {
   };
 
   return (
-    <div>
+    <div className='todos-container'>
       <DeleteAlert
         isDeleteAlert={isDeleteAlert}
         setIsDeleteAlert={setIsDeleteAlert}
