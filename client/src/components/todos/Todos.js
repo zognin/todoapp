@@ -9,6 +9,8 @@ import DeleteAlert from './DeleteAlert';
 import DeletingAlert from './DeletingAlert';
 import PriorityIcon from '../svg/PriorityIcon';
 import Viewbar from './Viewbar';
+import { searchOptions } from './SearchOptions';
+import SearchCalendar from './SearchCalendar';
 
 const Todos = ({
   items,
@@ -18,29 +20,12 @@ const Todos = ({
   isUpdate,
   setIsUpdate,
 }) => {
-  // const [items, setItems] = useState([]);
-  // const [itemsDisplayed, setItemsDisplayed] = useState([]);
   let headerData = JSON.parse(sessionStorage.userData);
-  // const [isUpdate, setIsUpdate] = useState(false);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
   const [deleteData, setDeleteData] = useState({ id: '' });
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3000/api/v1/todos`, {
-  //       headers: headerData,
-  //     })
-  //     .then((res) => {
-  //       const item = res.data.data;
-  //       setItems(item);
-  //       setItemsDisplayed(item);
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [isUpdate]);
+  const [selected, setSelected] = useState(searchOptions[0]);
+  const [isActiveSearchCalendar, setIsActiveSearchCalendar] = useState(false);
 
   const toggleCheckbox = (e) => {
     e.preventDefault();
@@ -119,6 +104,17 @@ const Todos = ({
         items={items}
         itemsDisplayed={itemsDisplayed}
         setItemsDisplayed={setItemsDisplayed}
+        setIsActiveSearchCalendar={setIsActiveSearchCalendar}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <SearchCalendar
+        isActiveSearchCalendar={isActiveSearchCalendar}
+        setIsActiveSearchCalendar={setIsActiveSearchCalendar}
+        selected={selected}
+        setSelected={setSelected}
+        items={items}
+        setItemsDisplayed={setItemsDisplayed}
       />
       <Viewbar
         items={items}
@@ -137,6 +133,10 @@ const Todos = ({
               key={todo.id}
               className='todolist-items'
             >
+              <small className='todolist-date'>
+                {todo.attributes.start_time.slice(5, 10)} to{' '}
+                {todo.attributes.end_time.slice(5, 10)}
+              </small>
               <div className='todolist-items-link'>{todo.attributes.task}</div>
               <small className='todolist-items-category'>
                 {todo.attributes.category}

@@ -4,10 +4,15 @@ import SearchIcon from '../svg/SearchIcon';
 import Dropdown from './Dropdown';
 import { searchOptions } from './SearchOptions';
 
-const Search = ({ items, setItemsDisplayed }) => {
+const Search = ({
+  items,
+  setItemsDisplayed,
+  setIsActiveSearchCalendar,
+  selected,
+  setSelected,
+}) => {
   const [input, setInput] = useState('');
   const [showCard, setShowCard] = useState(false);
-  const [selected, setSelected] = useState(searchOptions[0]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -58,7 +63,11 @@ const Search = ({ items, setItemsDisplayed }) => {
   }, [input]);
 
   useEffect(() => {
-    reorder();
+    if (selected === 'By Start Date' || selected === 'By End Date') {
+      setIsActiveSearchCalendar(true);
+    } else {
+      reorder();
+    }
   }, [selected]);
 
   const handleSelect = (e) => {

@@ -95,7 +95,7 @@ body > #root > div {
 
 .todolist-container {
   margin-top: 0;
-  width: 60vh;
+  width: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -162,6 +162,12 @@ body > #root > div {
   margin-right: 4px;
 }
 
+.todolist-date {
+  color: black;
+  margin-right: 2vh;
+  color: gray;
+}
+
 .checkbox-label {
   margin-right: 0.5em;
 }
@@ -184,7 +190,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5vh;
   width: 80vh;
 }
 
@@ -303,6 +308,17 @@ form {
   justify-content: center;
 }
 
+#search-calendar-container {
+  position: absolute;
+  display: flex;
+  max-width: 40vh;
+  max-height: 40vh;
+  overflow: auto;
+  background-color: white;
+  opacity: 0.95;
+  z-index: 20;
+}
+
 .react-calendar {
   width: 96% !important;
   border: none !important;
@@ -310,4 +326,29 @@ form {
 
 .react-calendar__tile {
   height: 100px;
+}
+
+.calendar-todo {
+  background-color: #ceedff;
+  margin: 1px 1px;
+  border-radius: 10px;
+  color: black;
+}
+
+.calendar-todo:hover {
+  background-color: #a0d3ff;
+  text-decoration: none;
+  color: black;
+}
+
+.close-btn {
+  position: absolute;
+  z-index: 25;
+  color: red;
+  width: inherit;
+  text-align: right;
+}
+
+.close-btn:hover {
+  font-weight: bold;
 }

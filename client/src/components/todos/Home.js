@@ -20,7 +20,6 @@ const Home = () => {
         const item = res.data.data;
         setItems(item);
         setItemsDisplayed(item);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -31,6 +30,7 @@ const Home = () => {
     <div>
       <Header />
       <div className='view'>
+        <CalendarView items={items} />
         <Todos
           items={items}
           setItems={setItems}
@@ -39,7 +39,6 @@ const Home = () => {
           isUpdate={isUpdate}
           setIsUpdate={setIsUpdate}
         />
-        <CalendarView items={items} />
       </div>
     </div>
   );
