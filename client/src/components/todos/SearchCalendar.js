@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import '../App.css';
-import { searchOptions } from './SearchOptions';
 
 const SearchCalendar = ({
   isActiveSearchCalendar,
@@ -15,7 +14,6 @@ const SearchCalendar = ({
 
   const handleClose = (e) => {
     setIsActiveSearchCalendar(false);
-    // setSelected(searchOptions[0]);
   };
 
   const handleSearchDate = (value, e) => {

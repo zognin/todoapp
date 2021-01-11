@@ -71,7 +71,7 @@ const TodoEdit = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/todos/${id}`, {
+      .get(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`, {
         headers: headerData,
       })
       .then((resp) => {
@@ -97,7 +97,7 @@ const TodoEdit = (props) => {
     e.preventDefault();
     axios
       .put(
-        `http://localhost:3000/api/v1/todos/${id}`,
+        `https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`,
         { todo: item },
         {
           headers: headerData,
@@ -124,7 +124,7 @@ const TodoEdit = (props) => {
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
     axios
-      .delete(`http://localhost:3000/api/v1/todos/${id}`, {
+      .delete(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`, {
         headers: headerData,
         data: item,
       })

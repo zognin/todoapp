@@ -13,7 +13,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/todos`, {
+      .get(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`, {
         headers: headerData,
       })
       .then((res) => {

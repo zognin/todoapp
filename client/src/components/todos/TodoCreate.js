@@ -66,7 +66,7 @@ const TodoCreate = () => {
   const handleSave = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:3000/api/v1/todos`, item, {
+      .post(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`, item, {
         headers: headerData,
       })
       .then((resp) => {

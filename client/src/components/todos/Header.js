@@ -9,11 +9,13 @@ const Header = () => {
 
   const handleSignout = (e) => {
     e.preventDefault();
-    console.log(headerData);
     axios
-      .delete('http://localhost:3000/api/v1/auth/sign_out', {
-        headers: headerData,
-      })
+      .delete(
+        'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_out',
+        {
+          headers: headerData,
+        }
+      )
       .then((resp) => {
         sessionStorage.removeItem('userData');
         history.push(`/login`);

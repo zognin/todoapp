@@ -36,7 +36,7 @@ const Todos = ({
 
     axios
       .put(
-        `http://localhost:3000/api/v1/todos/${id}`,
+        `https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`,
         { todo: item },
         {
           headers: headerData,
@@ -64,7 +64,7 @@ const Todos = ({
     if (Array.isArray(deleteData.id)) {
       axios
         .post(
-          `http://localhost:3000/api/v1/todos/destroy_multiple`,
+          `https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/destroy_multiple`,
           deleteData,
           {
             headers: headerData,
@@ -78,10 +78,13 @@ const Todos = ({
         });
     } else {
       axios
-        .delete(`http://localhost:3000/api/v1/todos/${deleteData.id}`, {
-          headers: headerData,
-          data: deleteData,
-        })
+        .delete(
+          `https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${deleteData.id}`,
+          {
+            headers: headerData,
+            data: deleteData,
+          }
+        )
         .then((resp) => {})
         .catch((err) => console.log(err.response));
     }

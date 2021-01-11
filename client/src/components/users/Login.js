@@ -5,6 +5,8 @@ import '../App.css';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
+  const [userDoesNotExist, setUserDoesNotExist] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -20,7 +22,10 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:3000/api/v1/auth/sign_in', user)
+      .post(
+        'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_in',
+        user
+      )
       .then((resp) => {
         const accessTokenResp = resp.headers['access-token'];
         const clientResp = resp.headers.client;
@@ -37,12 +42,49 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 401) {
+          setUserDoesNotExist(true);
+        } else {
+          setError(true);
+        }
       });
   };
 
   return (
     <div className='user-auth'>
+      {userDoesNotExist && (
+        <div
+          className='alert alert-info alert-dismissible fade show'
+          role='alert'
+        >
+          User does not exist, please create an account!
+          <button
+            type='button'
+            className='close'
+            aria-label='Close'
+            onClick={() => setUserDoesNotExist(false)}
+          >
+            <span aria-hidden='true'>&times;</span>
+          </button>
+        </div>
+      )}
+      {error && (
+        <div
+          className='alert alert-danger alert-dismissible fade show'
+          role='alert'
+        >
+          There is an error, please try again later.
+          <button
+            type='button'
+            className='close'
+            aria-label='Close'
+            onClick={() => setError(false)}
+          >
+            <span aria-hidden='true'>&times;</span>
+          </button>
+        </div>
+      )}
       <form onSubmit={handleLogin}>
         <div>
           <h1>To Do App</h1>

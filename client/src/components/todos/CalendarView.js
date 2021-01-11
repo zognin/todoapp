@@ -4,8 +4,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 import '../svg/AddButton';
-import AddButton from '../svg/AddButton';
-import context from 'react-bootstrap/esm/AccordionContext';
 
 const CalendarView = ({ items }) => {
   const [date, setDate] = useState(new Date());

@@ -17,6 +17,7 @@ const Signup = () => {
   const [userAlreadyExists, setUserAlreadyExists] = useState(false);
   const [error, setError] = useState(false);
   const [submitError, setSubmitError] = useState(false);
+  const [isSuccessAlert, setIsSuccessAlert] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -54,9 +55,13 @@ const Signup = () => {
     if (valid.email && valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .post('http://localhost:3000/api/v1/auth', user)
+        .post('https://zognin-todoapp-rails.herokuapp.com/api/v1/auth', user)
         .then((resp) => {
-          history.push(`/login`);
+          setIsSuccessAlert(true);
+          setTimeout(() => {
+            setIsSuccessAlert(false);
+            history.push('/login');
+          }, 800);
         })
         .catch((err) => {
           console.log(err.response);
@@ -73,6 +78,11 @@ const Signup = () => {
 
   return (
     <div className='user-auth'>
+      {isSuccessAlert && (
+        <div className='alert alert-success'>
+          Account Created! Redirecting to Login...
+        </div>
+      )}
       {userAlreadyExists && (
         <div
           className='alert alert-info alert-dismissible fade show'

@@ -14,7 +14,7 @@ const Todo = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/v1/todos/${id}`, {
+      .get(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`, {
         headers: headerData,
       })
       .then((resp) => {
