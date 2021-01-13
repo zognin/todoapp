@@ -55,7 +55,10 @@ const Signup = () => {
     if (valid.email && valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .post('https://zognin-todoapp-rails.herokuapp.com/api/v1/auth', user)
+        .post(
+          'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth',
+          user
+        )
         .then((resp) => {
           setIsSuccessAlert(true);
           setTimeout(() => {
