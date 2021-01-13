@@ -13,9 +13,12 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`, {
-        headers: headerData,
-      })
+      .get(
+        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`,
+        {
+          headers: headerData,
+        }
+      )
       .then((res) => {
         const item = res.data.data;
         setItems(item);
