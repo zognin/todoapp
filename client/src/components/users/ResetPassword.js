@@ -68,7 +68,7 @@ const ResetPassword = () => {
       setSubmitError(false);
       axios
         .put(
-          'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
+          'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
           null,
           {
             params: user,
