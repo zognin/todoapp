@@ -11,7 +11,7 @@ const Header = () => {
     e.preventDefault();
     axios
       .delete(
-        'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_out',
+        'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_out',
         {
           headers: headerData,
         }

@@ -66,9 +66,13 @@ const TodoCreate = () => {
   const handleSave = (e) => {
     e.preventDefault();
     axios
-      .post(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`, item, {
-        headers: headerData,
-      })
+      .post(
+        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`,
+        item,
+        {
+          headers: headerData,
+        }
+      )
       .then((resp) => {
         setIsSuccessAlert(true);
       })

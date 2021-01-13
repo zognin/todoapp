@@ -14,9 +14,12 @@ const Todo = (props) => {
 
   useEffect(() => {
     axios
-      .get(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`, {
-        headers: headerData,
-      })
+      .get(
+        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`,
+        {
+          headers: headerData,
+        }
+      )
       .then((resp) => {
         setItem(resp.data.data.attributes);
       })
