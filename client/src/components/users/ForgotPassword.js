@@ -18,12 +18,16 @@ const ForgotPassword = () => {
     setIsSent(true);
     const payload = {
       email: email,
-      redirect_url: 'http://localhost:3001/reset-password',
+      redirect_url: 'https://zognin-todoapp.herokuapp.com/login/reset-password',
     };
     axios
-      .post('http://localhost:3000/api/v1/auth/password', null, {
-        params: payload,
-      })
+      .post(
+        'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
+        null,
+        {
+          params: payload,
+        }
+      )
       .then((resp) => {})
       .catch((err) => console.log(err.response));
   };

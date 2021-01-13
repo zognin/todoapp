@@ -12,7 +12,7 @@ module Todoapp
     config.load_defaults 6.0
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'http://localhost:3001'
+        origins 'https://zognin-todoapp.herokuapp.com'
         resource '*', 
         :headers => :any,
         :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'], 

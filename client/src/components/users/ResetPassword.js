@@ -67,10 +67,14 @@ const ResetPassword = () => {
     if (valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .put('http://localhost:3000/api/v1/auth/password', null, {
-          params: user,
-          headers: headerData,
-        })
+        .put(
+          'https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
+          null,
+          {
+            params: user,
+            headers: headerData,
+          }
+        )
         .then((resp) => {
           history.push(`/login`);
         })
