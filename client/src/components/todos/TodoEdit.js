@@ -105,8 +105,8 @@ const TodoEdit = (props) => {
       )
       .then((resp) => {
         setIsSuccessAlert(true);
+        setTimeout(() => setIsSuccessAlert(false), 800);
       });
-    setTimeout(() => setIsSuccessAlert(false), 800);
   };
 
   let history = useHistory();
@@ -130,6 +130,11 @@ const TodoEdit = (props) => {
       setIsDeletingAlert(false);
       history.push('/home');
     }, 1000);
+  };
+
+  const handleStartEndDate = (value) => {
+    setStartDate(value);
+    setEndDate(value);
   };
 
   return (
@@ -187,7 +192,9 @@ const TodoEdit = (props) => {
             Start
           </label>
           <Calendar
-            onChange={setStartDate}
+            onChange={(value) => {
+              handleStartEndDate(value);
+            }}
             value={new Date(item.start_time)}
             onClickDay={(startDate, e) => setStartDate(startDate)}
           />
