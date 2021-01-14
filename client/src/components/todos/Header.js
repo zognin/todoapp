@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../App.css';
+import { productionBackendURL } from '../Path';
 
 const Header = () => {
   let history = useHistory();
@@ -10,18 +11,12 @@ const Header = () => {
   const handleSignout = (e) => {
     e.preventDefault();
     axios
-      .delete(
-        'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_out',
-        {
-          headers: headerData,
-        }
-      )
+      .delete(`${productionBackendURL}/api/v1/auth/sign_out`, {
+        headers: headerData,
+      })
       .then((resp) => {
         sessionStorage.removeItem('userData');
         history.push(`/login`);
-      })
-      .catch((err) => {
-        console.log(err.response);
       });
   };
 

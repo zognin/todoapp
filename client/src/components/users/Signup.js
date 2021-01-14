@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
+import { productionBackendURL } from '../Path';
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -55,10 +56,7 @@ const Signup = () => {
     if (valid.email && valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .post(
-          'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth',
-          user
-        )
+        .post(`${productionBackendURL}/api/v1/auth`, user)
         .then((resp) => {
           setIsSuccessAlert(true);
           setTimeout(() => {
@@ -67,7 +65,6 @@ const Signup = () => {
           }, 800);
         })
         .catch((err) => {
-          console.log(err.response);
           if (err.response.status === 422) {
             setUserAlreadyExists(true);
           } else {

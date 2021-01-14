@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import '../App.css';
+import { productionBackendURL } from '../Path';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
   const [userDoesNotExist, setUserDoesNotExist] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -21,11 +23,9 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setIsLoggingIn(true);
     axios
-      .post(
-        'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/sign_in',
-        user
-      )
+      .post(`${productionBackendURL}/api/v1/auth/sign_in`, user)
       .then((resp) => {
         const accessTokenResp = resp.headers['access-token'];
         const clientResp = resp.headers.client;
@@ -42,7 +42,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err.response);
+        setIsLoggingIn(false);
         if (err.response.status === 401) {
           setUserDoesNotExist(true);
         } else {
@@ -119,9 +119,15 @@ const Login = () => {
           ></input>
         </div>
         <br />
-        <button type='submit' className='btn btn-primary'>
-          Log In
-        </button>
+        {isLoggingIn ? (
+          <button type='submit' className='btn btn-secondary'>
+            Logging In...
+          </button>
+        ) : (
+          <button type='submit' className='btn btn-primary'>
+            Log In
+          </button>
+        )}
         <br />
         <Link to='/signup'>Create Account</Link>
         <br />

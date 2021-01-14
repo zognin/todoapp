@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
+import { productionBackendURL } from '../Path';
 
 const ResetPassword = () => {
   const [user, setUser] = useState({
@@ -22,6 +23,7 @@ const ResetPassword = () => {
     setUser({ ...user, [name]: value });
   };
 
+  // To get access-token, client and uid from url
   useEffect(() => {
     const url = window.location.href;
     const queryStringIndex = url.indexOf('?');
@@ -67,19 +69,14 @@ const ResetPassword = () => {
     if (valid.password && valid.password_confirmation) {
       setSubmitError(false);
       axios
-        .put(
-          'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
-          null,
-          {
-            params: user,
-            headers: headerData,
-          }
-        )
+        .put(`${productionBackendURL}/api/v1/auth/password`, null, {
+          params: user,
+          headers: headerData,
+        })
         .then((resp) => {
           history.push(`/login`);
         })
         .catch((err) => {
-          console.log(err.response);
           setError(true);
         });
     } else {

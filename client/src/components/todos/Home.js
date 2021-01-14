@@ -4,6 +4,7 @@ import Header from './Header';
 import CalendarView from './CalendarView';
 import axios from 'axios';
 import '../App.css';
+import { productionBackendURL } from '../Path';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -13,19 +14,13 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`,
-        {
-          headers: headerData,
-        }
-      )
+      .get(`${productionBackendURL}/api/v1/todos`, {
+        headers: headerData,
+      })
       .then((res) => {
         const item = res.data.data;
         setItems(item);
         setItemsDisplayed(item);
-      })
-      .catch((err) => {
-        console.log(err);
       });
   }, [isUpdate]);
 

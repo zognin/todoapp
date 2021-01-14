@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../App.css';
+import { productionBackendURL, productionFrontendURL } from '../Path';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -18,18 +19,11 @@ const ForgotPassword = () => {
     setIsSent(true);
     const payload = {
       email: email,
-      redirect_url: 'https://zognin-todoapp.herokuapp.com/login/reset-password',
+      redirect_url: `${productionFrontendURL}/login/reset-password`,
     };
-    axios
-      .post(
-        'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/auth/password',
-        null,
-        {
-          params: payload,
-        }
-      )
-      .then((resp) => {})
-      .catch((err) => console.log(err.response));
+    axios.post(`${productionBackendURL}/api/v1/auth/password`, null, {
+      params: payload,
+    });
   };
 
   return (

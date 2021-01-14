@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useHistory } from 'react-router-dom';
 import SuccessAlert from './SuccessAlert';
 import Back from './Back';
+import { productionBackendURL } from '../Path';
 
 const TodoCreate = () => {
   let headerData = JSON.parse(sessionStorage.userData);
@@ -62,22 +63,20 @@ const TodoCreate = () => {
     setItem({ ...item, is_priority: !item.is_priority });
   };
 
+  const handleStartEndDate = (value) => {
+    setStartDate(value);
+    setEndDate(value);
+  };
+
   let history = useHistory();
   const handleSave = (e) => {
     e.preventDefault();
     axios
-      .post(
-        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos`,
-        item,
-        {
-          headers: headerData,
-        }
-      )
+      .post(`${productionBackendURL}/api/v1/todos`, item, {
+        headers: headerData,
+      })
       .then((resp) => {
         setIsSuccessAlert(true);
-      })
-      .catch((err) => {
-        console.log(err);
       });
     setTimeout(() => {
       setIsSuccessAlert(false);
@@ -87,8 +86,8 @@ const TodoCreate = () => {
 
   return (
     <div className='todo-form'>
+      <SuccessAlert isSuccessAlert={isSuccessAlert} />
       <form>
-        <SuccessAlert isSuccessAlert={isSuccessAlert} />
         <h1>New Task</h1>
         <div className='form-group'>
           <label htmlFor='task' className='form-label'>
@@ -134,7 +133,9 @@ const TodoCreate = () => {
             Start
           </label>
           <Calendar
-            onChange={setStartDate}
+            onChange={(value) => {
+              handleStartEndDate(value);
+            }}
             value={startDate}
             onClickDay={(startDate, e) => setStartDate(startDate)}
           />

@@ -10,6 +10,7 @@ import SuccessAlert from './SuccessAlert';
 import DeleteAlert from './DeleteAlert';
 import DeletingAlert from './DeletingAlert';
 import Back from './Back';
+import { productionBackendURL } from '../Path';
 
 const TodoEdit = (props) => {
   let headerData = JSON.parse(sessionStorage.userData);
@@ -71,16 +72,12 @@ const TodoEdit = (props) => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`,
-        {
-          headers: headerData,
-        }
-      )
+      .get(`${productionBackendURL}/api/v1/todos/${id}`, {
+        headers: headerData,
+      })
       .then((resp) => {
         setItem(resp.data.data.attributes);
-      })
-      .catch((err) => console.log(err));
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -100,7 +97,7 @@ const TodoEdit = (props) => {
     e.preventDefault();
     axios
       .put(
-        `https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`,
+        `${productionBackendURL}/api/v1/todos/${id}`,
         { todo: item },
         {
           headers: headerData,
@@ -108,9 +105,6 @@ const TodoEdit = (props) => {
       )
       .then((resp) => {
         setIsSuccessAlert(true);
-      })
-      .catch((err) => {
-        console.log(err);
       });
     setTimeout(() => setIsSuccessAlert(false), 800);
   };
@@ -127,12 +121,11 @@ const TodoEdit = (props) => {
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
     axios
-      .delete(`https://zognin-todoapp-rails.herokuapp.com/api/v1/todos/${id}`, {
+      .delete(`${productionBackendURL}/api/v1/todos/${id}`, {
         headers: headerData,
         data: item,
       })
-      .then((resp) => {})
-      .catch((err) => console.log(err.response));
+      .then((resp) => {});
     setTimeout(() => {
       setIsDeletingAlert(false);
       history.push('/home');
@@ -141,14 +134,14 @@ const TodoEdit = (props) => {
 
   return (
     <div className='todo-form'>
+      <SuccessAlert isSuccessAlert={isSuccessAlert} />
+      <DeletingAlert isDeletingAlert={isDeletingAlert} />
+      <DeleteAlert
+        isDeleteAlert={isDeleteAlert}
+        handleDelete={handleDelete}
+        setIsDeleteAlert={setIsDeleteAlert}
+      />
       <form>
-        <SuccessAlert isSuccessAlert={isSuccessAlert} />
-        <DeletingAlert isDeletingAlert={isDeletingAlert} />
-        <DeleteAlert
-          isDeleteAlert={isDeleteAlert}
-          handleDelete={handleDelete}
-          setIsDeleteAlert={setIsDeleteAlert}
-        />
         <h1>Edit</h1>
         <div className='form-group'>
           <label htmlFor='task' className='form-label'>
