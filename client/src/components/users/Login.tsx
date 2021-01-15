@@ -10,7 +10,8 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const handleChange = (e) => {
+  // To set form input values
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({ ...user, [name]: value });
@@ -21,7 +22,7 @@ const Login = () => {
 
   let history = useHistory();
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoggingIn(true);
     axios
@@ -43,7 +44,7 @@ const Login = () => {
       })
       .catch((err) => {
         setIsLoggingIn(false);
-        if (err.response.status === 401) {
+        if (err.response.status && err.response.status === 401) {
           setUserDoesNotExist(true);
         } else {
           setError(true);

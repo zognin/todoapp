@@ -5,6 +5,7 @@ import '../App.css';
 import { productionBackendURL } from '../Path';
 
 const ResetPassword = () => {
+  // Store user password and password_confirmation
   const [user, setUser] = useState({
     password: '',
     password_confirmation: '',
@@ -17,7 +18,9 @@ const ResetPassword = () => {
   const [error, setError] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [headerData, setHeaderData] = useState({});
-  const handleChange = (e) => {
+
+  // To set form input values
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({ ...user, [name]: value });
@@ -29,15 +32,17 @@ const ResetPassword = () => {
     const queryStringIndex = url.indexOf('?');
     const queryString = url.substring(queryStringIndex + 1);
     const queryStringParts = queryString.split('&');
-    var parameters = {};
+    var parameters: {
+      [key: string]: string;
+    } = {};
     queryStringParts.forEach((part) => {
       var equalsIndex = part.indexOf('=');
-      var key, value;
+      var key: string, value: string;
       key = part.substring(0, equalsIndex);
       value = part.substring(equalsIndex + 1);
       key = decodeURIComponent(key);
       value = decodeURIComponent(value);
-      parameters[key] = value;
+      parameters.key = value;
     });
     setHeaderData({
       'access-token': parameters['access-token'],
@@ -46,6 +51,7 @@ const ResetPassword = () => {
     });
   }, []);
 
+  // To check if password and password_confirmation inputs are valid
   useEffect(() => {
     if (
       user.password.length >= 12 &&
@@ -53,18 +59,18 @@ const ResetPassword = () => {
     ) {
       setValid({ password: true, password_confirmation: true });
     } else if (user.password.length < 12) {
-      setValid({ ...valid, email: true, password: false });
+      setValid({ ...valid, password: false });
     } else {
-      setValid({ email: true, password: true, password_confirmation: false });
+      setValid({ password: true, password_confirmation: false });
     }
-  }, [user.email, user.password, user.password_confirmation]);
+  }, [user.password, user.password_confirmation]);
 
   let history = useHistory();
 
   axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
   axios.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
-  const handleReset = (e) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (valid.password && valid.password_confirmation) {
       setSubmitError(false);

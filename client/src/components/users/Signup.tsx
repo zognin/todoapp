@@ -20,16 +20,19 @@ const Signup = () => {
   const [submitError, setSubmitError] = useState(false);
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
 
-  const handleChange = (e) => {
+  //To set form input values
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({ ...user, [name]: value });
   };
 
+  //Regex to check if email format is valid
   let pattern = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
 
+  //Check if email, password and confirm password inputs are valid
   useEffect(() => {
     if (
       pattern.test(user.email) &&
@@ -51,7 +54,7 @@ const Signup = () => {
   axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
   axios.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
-  const handleSignup = (e) => {
+  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (valid.email && valid.password && valid.password_confirmation) {
       setSubmitError(false);
@@ -65,7 +68,7 @@ const Signup = () => {
           }, 800);
         })
         .catch((err) => {
-          if (err.response.status === 422) {
+          if (err.response.status && err.response.status === 422) {
             setUserAlreadyExists(true);
           } else {
             setError(true);

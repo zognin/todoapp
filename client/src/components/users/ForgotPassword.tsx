@@ -7,19 +7,19 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [isSent, setIsSent] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   axios.defaults.xsrfCookieName = 'CSRF-TOKEN';
   axios.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
-  const handleReset = (e) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSent(true);
     const payload = {
       email: email,
-      redirect_url: `${productionFrontendURL}/login/reset-password`,
+      redirect_url: `${productionFrontendURL}/reset-password`,
     };
     axios.post(`${productionBackendURL}/api/v1/auth/password`, null, {
       params: payload,
