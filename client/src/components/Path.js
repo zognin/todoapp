@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const productionBackendURL =
   'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com';
 

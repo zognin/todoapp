@@ -42,7 +42,7 @@ const ResetPassword = () => {
       value = part.substring(equalsIndex + 1);
       key = decodeURIComponent(key);
       value = decodeURIComponent(value);
-      parameters.key = value;
+      parameters[key] = value;
     });
     setHeaderData({
       'access-token': parameters['access-token'],
