@@ -27,10 +27,10 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               transform='translate(1211 576)'
               fill='#ceedff'
               stroke='#0c129f'
-              strokeWidth='8'
+              strokeWidth='12'
             >
               <rect width='81' height='81' stroke='none' id={id} />
-              <rect x='4' y='4' width='73' height='73' fill='none' id={id} />
+              <rect x='6' y='6' width='69' height='69' fill='none' id={id} />
             </g>
             <line
               id='Line_1'
@@ -62,7 +62,6 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
           width='81'
           height='81'
           viewBox='0 0 81 81'
-          preserveAspectRatio='xMaxYMin meet'
           id={id}
         >
           <g id='Group_3' data-name='Group 3' transform='translate(-1207 -399)'>
@@ -73,10 +72,10 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
                 transform='translate(1211 576)'
                 fill='#fff'
                 stroke='#0c129f'
-                strokeWidth='8'
+                strokeWidth='12'
               >
                 <rect width='81' height='81' stroke='none' id={id} />
-                <rect x='4' y='4' width='73' height='73' fill='none' id={id} />
+                <rect x='6' y='6' width='69' height='69' fill='none' id={id} />
               </g>
               <line
                 id='Line_1'

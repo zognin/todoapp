@@ -255,13 +255,13 @@ img {
 }
 
 .dropdown-selected {
-  padding-right: 8px;
+  padding-left: 6px;
 }
 
 .dropdown-button {
   align-items: center;
   display: flex;
-  padding: 11px 10px;
+  height: inherit;
 }
 
 .dropdown-button:hover {
