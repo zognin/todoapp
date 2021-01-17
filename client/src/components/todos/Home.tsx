@@ -40,7 +40,6 @@ const Home = () => {
         const item = res.data.data;
         setItems(item);
         setItemsDisplayed(item);
-        console.log(item);
       });
   }, [isUpdate]);
 

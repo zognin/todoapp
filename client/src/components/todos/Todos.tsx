@@ -59,24 +59,25 @@ const Todos: React.FC<Props> = ({
   const [isActiveSearchCalendar, setIsActiveSearchCalendar] = useState(false);
   const [error, setError] = useState(false);
 
-  const toggleCheckbox = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    const id = (e.target as HTMLDivElement).getAttribute('id');
-    const isCompleted = (e.target as HTMLDivElement).getAttribute('value');
-    const toggle_completed = isCompleted === 'false' ? true : false;
-    let item = { id: id, is_completed: toggle_completed };
+  // const toggleCheckbox = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   e.preventDefault();
+  //   const id = (e.target as HTMLElement).getAttribute('id');
+  //   const todo = items!.filter((item) => item.id === id);
+  //   const isCompleted = todo[0].attributes.is_completed;
+  //   const toggle_completed = !isCompleted;
+  //   let changedItem = { id: id, is_completed: toggle_completed };
 
-    axios
-      .put(
-        `${productionBackendURL}/api/v1/todos/${id}`,
-        { todo: item },
-        {
-          headers: headerData,
-        }
-      )
-      .then((res) => setIsUpdate(!isUpdate))
-      .catch((err) => setError(true));
-  };
+  //   axios
+  //     .put(
+  //       `${productionBackendURL}/api/v1/todos/${id}`,
+  //       { todo: changedItem },
+  //       {
+  //         headers: headerData,
+  //       }
+  //     )
+  //     .then((res) => setIsUpdate(!isUpdate))
+  //     .catch((err) => setError(true));
+  // };
 
   const handleDeleteClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -100,14 +101,14 @@ const Todos: React.FC<Props> = ({
             headers: headerData,
           }
         )
-        .catch((err) => setError(true));
+        .catch(() => setError(true));
     } else {
       axios
         .delete(`${productionBackendURL}/api/v1/todos/${deleteData.id}`, {
           headers: headerData,
           data: deleteData,
         })
-        .catch((err) => setError(true));
+        .catch(() => setError(true));
     }
     setTimeout(() => {
       setIsDeletingAlert(false);
@@ -184,10 +185,17 @@ const Todos: React.FC<Props> = ({
                 </small>
                 <div className='todolist-icons-container'>
                   {todo.attributes.is_priority && <PriorityIcon />}
-                  {todo.attributes.is_completed ? (
+                  <CheckboxTicked
+                    // toggleCheckbox={toggleCheckbox}
+                    id={todo.id}
+                    isCompleted={todo.attributes.is_completed}
+                    setError={setError}
+                  />
+                  {/* {todo.attributes.is_completed ? (
                     <CheckboxTicked
                       toggleCheckbox={toggleCheckbox}
                       id={todo.id}
+                      isCompleted={todo.attributes.is_completed}
                     />
                   ) : (
                     <div
@@ -195,7 +203,7 @@ const Todos: React.FC<Props> = ({
                       onClick={toggleCheckbox}
                       id={todo.id}
                     ></div>
-                  )}
+                  )} */}
                   <Trash handleDeleteClick={handleDeleteClick} id={todo.id} />
                 </div>
               </Link>

@@ -1,19 +1,59 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { productionBackendURL } from '../Path';
 
 interface Props {
-  toggleCheckbox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  // toggleCheckbox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   id: string;
+  isCompleted: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
+const CheckboxTicked: React.FC<Props> = ({
+  // toggleCheckbox,
+  id,
+  isCompleted,
+  setError,
+}) => {
   const [isHover, setIsHover] = useState(false);
+  const [isMarkedCompleted, setIsMarkedCompleted] = useState(isCompleted);
+
+  let headerData = JSON.parse(sessionStorage.userData);
+
+  const toggleCheckbox = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    const id = (e.target as HTMLElement).getAttribute('id');
+    const toggle_completed = !isMarkedCompleted;
+    setIsMarkedCompleted(!isMarkedCompleted);
+    let changedItem = { id: id, is_completed: toggle_completed };
+
+    setTimeout(() => {
+      axios
+        .put(
+          `${productionBackendURL}/api/v1/todos/${id}`,
+          { todo: changedItem },
+          {
+            headers: headerData,
+          }
+        )
+        .then()
+        .catch((err) => setError(true));
+    }, 500);
+  };
+
   return (
     <div
       onClick={toggleCheckbox}
       onMouseOver={() => setIsHover(true)}
       onMouseOut={() => setIsHover(false)}
     >
-      {isHover ? (
+      {isMarkedCompleted ? (
+        <div
+          className='todolist-checkbox'
+          onClick={toggleCheckbox}
+          id={id}
+        ></div>
+      ) : isHover ? (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           width='81'
@@ -21,13 +61,9 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
           viewBox='0 0 81 81'
           id={id}
         >
-          <g
-            id='Group_17'
-            data-name='Group 17'
-            transform='translate(-1211 -576)'
-          >
+          <g id={id} data-name='Group 17' transform='translate(-1211 -576)'>
             <g
-              id='Rectangle_9'
+              id={id}
               data-name='Rectangle 9'
               transform='translate(1211 576)'
               fill='#ceedff'
@@ -38,7 +74,7 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
               <rect x='6' y='6' width='69' height='69' fill='none' id={id} />
             </g>
             <line
-              id='Line_1'
+              id={id}
               data-name='Line 1'
               x2='14'
               y2='17'
@@ -48,7 +84,7 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
               strokeWidth='8'
             />
             <line
-              id='Line_2'
+              id={id}
               data-name='Line 2'
               x1='31'
               y2='30'
@@ -67,10 +103,10 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
           viewBox='0 0 81 81'
           id={id}
         >
-          <g id='Group_3' data-name='Group 3' transform='translate(-1207 -399)'>
-            <g id='Group_5' data-name='Group 5' transform='translate(-4 -177)'>
+          <g id={id} data-name='Group 3' transform='translate(-1207 -399)'>
+            <g id={id} data-name='Group 5' transform='translate(-4 -177)'>
               <g
-                id='Rectangle_9'
+                id={id}
                 data-name='Rectangle 9'
                 transform='translate(1211 576)'
                 fill='#fff'
@@ -81,7 +117,7 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
                 <rect x='6' y='6' width='69' height='69' fill='none' id={id} />
               </g>
               <line
-                id='Line_1'
+                id={id}
                 data-name='Line 1'
                 x2='14'
                 y2='17'
@@ -91,7 +127,7 @@ const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
                 strokeWidth='8'
               />
               <line
-                id='Line_2'
+                id={id}
                 data-name='Line 2'
                 x1='31'
                 y2='30'
