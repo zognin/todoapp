@@ -1,6 +1,10 @@
 import React from 'react';
 
-const SuccessAlert = ({ isSuccessAlert }) => {
+interface Props {
+  isSuccessAlert: boolean;
+}
+
+const SuccessAlert: React.FC<Props> = ({ isSuccessAlert }) => {
   return (
     <div>
       {isSuccessAlert && <div className='alert alert-success'>Saving...</div>}

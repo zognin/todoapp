@@ -124,7 +124,7 @@ const TodoEdit = (props: any) => {
     setIsDeleteAlert(true);
   };
 
-  const handleDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);

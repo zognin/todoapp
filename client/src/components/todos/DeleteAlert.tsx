@@ -1,6 +1,16 @@
 import React from 'react';
 
-const DeleteAlert = ({ isDeleteAlert, handleDelete, setIsDeleteAlert }) => {
+interface Props {
+  isDeleteAlert: boolean;
+  handleDelete: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  setIsDeleteAlert: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DeleteAlert: React.FC<Props> = ({
+  isDeleteAlert,
+  handleDelete,
+  setIsDeleteAlert,
+}) => {
   return (
     <div>
       {isDeleteAlert && (

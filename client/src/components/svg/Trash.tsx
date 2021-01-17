@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-const TrashInactive = ({ handleDeleteClick, id }) => {
+interface Props {
+  handleDeleteClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  id: string;
+}
+
+const TrashInactive: React.FC<Props> = ({ handleDeleteClick, id }) => {
   const [isHover, setIsHover] = useState(false);
 
   return (

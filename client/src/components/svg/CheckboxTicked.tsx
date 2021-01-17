@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-const CheckboxTicked = ({ toggleCheckbox, id }) => {
+interface Props {
+  toggleCheckbox: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  id: string;
+}
+
+const CheckboxTicked: React.FC<Props> = ({ toggleCheckbox, id }) => {
   const [isHover, setIsHover] = useState(false);
   return (
     <div
@@ -41,7 +46,6 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               fill='none'
               stroke='#0c129f'
               strokeWidth='8'
-              id={id}
             />
             <line
               id='Line_2'
@@ -52,7 +56,6 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
               fill='none'
               stroke='#0c129f'
               strokeWidth='8'
-              id={id}
             />
           </g>
         </svg>
@@ -86,7 +89,6 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
                 fill='none'
                 stroke='#0c129f'
                 strokeWidth='8'
-                id={id}
               />
               <line
                 id='Line_2'
@@ -97,7 +99,6 @@ const CheckboxTicked = ({ toggleCheckbox, id }) => {
                 fill='none'
                 stroke='#0c129f'
                 strokeWidth='8'
-                id={id}
               />
             </g>
           </g>

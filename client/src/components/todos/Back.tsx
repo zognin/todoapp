@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 const Back = () => {
   let history = useHistory();
-  const handleBack = (e) => {
+  const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     history.goBack();
   };

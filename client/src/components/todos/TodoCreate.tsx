@@ -21,55 +21,61 @@ const TodoCreate = () => {
     is_completed: false,
     is_priority: false,
   });
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | Date[]>(new Date());
   const [startTime, setStartTime] = useState('09:00');
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState<Date | Date[]>(new Date());
   const [endTime, setEndTime] = useState('10:00');
 
   useEffect(() => {
     const startDateTime = formatDate(startDate, startTime);
-    const utcString = startDateTime.toISOString();
-    setItem({ ...item, start_time: utcString });
+    if (startDateTime instanceof Date) {
+      const utcString = startDateTime.toISOString();
+      setItem({ ...item, start_time: utcString });
+    }
   }, [startDate, startTime]);
 
   useEffect(() => {
     const endDateTime = formatDate(endDate, endTime);
-    const utcString = endDateTime.toISOString();
-    setItem({ ...item, end_time: utcString });
+    if (endDateTime instanceof Date) {
+      const utcString = endDateTime.toISOString();
+      setItem({ ...item, end_time: utcString });
+    }
   }, [endDate, endTime]);
 
-  const formatDate = (datetime, time) => {
-    const hour = time.slice(0, 2);
-    const minutes = time.slice(3, 5);
-    datetime.setHours(hour);
-    datetime.setMinutes(minutes);
-    datetime.setSeconds(0);
+  const formatDate = (datetime: Date | Date[], time: string) => {
+    const hour = Number(time.slice(0, 2));
+    const minutes = Number(time.slice(3, 5));
+    if (datetime instanceof Date) {
+      datetime.setHours(hour);
+      datetime.setMinutes(minutes);
+      datetime.setSeconds(0);
+    }
     return datetime;
   };
 
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setItem({ ...item, [name]: value });
   };
 
-  const handleCheckComplete = (e) => {
+  const handleCheckComplete = () => {
     setItem({ ...item, is_completed: !item.is_completed });
   };
 
-  const handleCheckPriority = (e) => {
+  const handleCheckPriority = () => {
     setItem({ ...item, is_priority: !item.is_priority });
   };
 
-  const handleStartEndDate = (value) => {
+  const handleStartEndDate = (value: Date | Date[]) => {
     setStartDate(value);
     setEndDate(value);
   };
 
   let history = useHistory();
-  const handleSave = (e) => {
+  const handleSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     axios
       .post(`${productionBackendURL}/api/v1/todos`, item, {
@@ -137,7 +143,7 @@ const TodoCreate = () => {
               handleStartEndDate(value);
             }}
             value={startDate}
-            onClickDay={(startDate, e) => setStartDate(startDate)}
+            onClickDay={(startDate) => setStartDate(startDate)}
           />
           <input
             type='time'
@@ -155,7 +161,7 @@ const TodoCreate = () => {
           <Calendar
             onChange={setEndDate}
             value={endDate}
-            onClickDay={(endDate, e) => setEndDate(endDate)}
+            onClickDay={(endDate) => setEndDate(endDate)}
           />
           <input
             type='time'

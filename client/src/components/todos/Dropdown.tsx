@@ -1,7 +1,15 @@
 import React from 'react';
 import '../App.css';
 
-const Dropdown = ({
+interface Props {
+  handleSelect: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  showCard: boolean;
+  setShowCard: React.Dispatch<React.SetStateAction<boolean>>;
+  selected: string;
+  searchOptions: string[];
+}
+
+const Dropdown: React.FC<Props> = ({
   handleSelect,
   showCard,
   setShowCard,
@@ -20,7 +28,7 @@ const Dropdown = ({
             <div
               key={searchOptions.indexOf(option)}
               className='dropdown-options'
-              onClick={handleSelect}
+              onClick={(e) => handleSelect(e)}
             >
               {option}
             </div>

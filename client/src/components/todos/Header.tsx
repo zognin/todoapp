@@ -8,7 +8,9 @@ const Header = () => {
   let history = useHistory();
   let headerData = JSON.parse(sessionStorage.userData);
 
-  const handleSignout = (e) => {
+  const handleSignout = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.preventDefault();
     axios
       .delete(`${productionBackendURL}/api/v1/auth/sign_out`, {

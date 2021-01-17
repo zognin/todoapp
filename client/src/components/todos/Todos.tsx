@@ -4,7 +4,7 @@ import axios from 'axios';
 import Search from './Search';
 import '../App.css';
 import CheckboxTicked from '../svg/CheckboxTicked';
-import TrashInactive from '../svg/TrashInactive';
+import Trash from '../svg/Trash';
 import DeleteAlert from './DeleteAlert';
 import DeletingAlert from './DeletingAlert';
 import PriorityIcon from '../svg/PriorityIcon';
@@ -40,6 +40,10 @@ interface Props {
   setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface DeleteData {
+  id: string | string[];
+}
+
 const Todos: React.FC<Props> = ({
   items,
   itemsDisplayed,
@@ -50,7 +54,7 @@ const Todos: React.FC<Props> = ({
   let headerData = JSON.parse(sessionStorage.userData);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
-  const [deleteData, setDeleteData] = useState({ id: '' });
+  const [deleteData, setDeleteData] = useState<DeleteData>({ id: '' });
   const [selected, setSelected] = useState(searchOptions[0]);
   const [isActiveSearchCalendar, setIsActiveSearchCalendar] = useState(false);
   const [error, setError] = useState(false);
@@ -131,7 +135,6 @@ const Todos: React.FC<Props> = ({
         isActiveSearchCalendar={isActiveSearchCalendar}
         setIsActiveSearchCalendar={setIsActiveSearchCalendar}
         selected={selected}
-        setSelected={setSelected}
         items={items}
         setItemsDisplayed={setItemsDisplayed}
       />
@@ -184,7 +187,7 @@ const Todos: React.FC<Props> = ({
                   {todo.attributes.is_completed ? (
                     <CheckboxTicked
                       toggleCheckbox={toggleCheckbox}
-                      id={todo.attributes.id}
+                      id={todo.id}
                     />
                   ) : (
                     <div
@@ -193,10 +196,7 @@ const Todos: React.FC<Props> = ({
                       id={todo.id}
                     ></div>
                   )}
-                  <TrashInactive
-                    handleDeleteClick={handleDeleteClick}
-                    id={todo.attributes.id}
-                  />
+                  <Trash handleDeleteClick={handleDeleteClick} id={todo.id} />
                 </div>
               </Link>
             ))}
