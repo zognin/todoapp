@@ -14,35 +14,36 @@ import { productionBackendURL } from '../Path';
 
 const TodoEdit = (props: any) => {
   let headerData = JSON.parse(sessionStorage.userData);
-  const initialDate = new Date();
-  const initialISODate = initialDate.toISOString();
 
   const [item, setItem] = useState({
-    task: '',
-    description: '',
-    category: '',
-    start_time: initialISODate,
-    end_time: initialISODate,
-    is_completed: false,
-    is_priority: false,
-    id: '',
+    task: props.location.state.task,
+    description: props.location.state.description,
+    category: props.location.state.category,
+    start_time: props.location.state.start_time,
+    end_time: props.location.state.end_time,
+    is_completed: props.location.state.is_completed,
+    is_priority: props.location.state.is_priority,
+    id: props.location.state.id,
   });
 
   const formatLocalTime = (isoDateTime: string) => {
     const datetime = new Date(isoDateTime);
     const hours = datetime.getHours();
     const minutes = datetime.getMinutes();
-    const hoursStr =
-      hours <= 9 ? '0' + hours.toString().concat() : hours.toString();
+    const hoursStr = hours <= 9 ? '0' + hours.toString() : hours.toString();
     const minutesStr =
       minutes <= 9 ? '0' + minutes.toString() : minutes.toString();
     return hoursStr + ':' + minutesStr;
   };
 
-  const [startDate, setStartDate] = useState<Date | Date[]>(new Date());
-  const [startTime, setStartTime] = useState('09:00');
-  const [endDate, setEndDate] = useState<Date | Date[]>(new Date());
-  const [endTime, setEndTime] = useState('10:00');
+  const [startDate, setStartDate] = useState<Date | Date[]>(
+    new Date(item.start_time)
+  );
+  const [startTime, setStartTime] = useState(formatLocalTime(item.start_time));
+  const [endDate, setEndDate] = useState<Date | Date[]>(
+    new Date(item.end_time)
+  );
+  const [endTime, setEndTime] = useState(formatLocalTime(item.end_time));
 
   useEffect(() => {
     const startDateTime = formatDate(startDate, startTime);
@@ -74,17 +75,6 @@ const TodoEdit = (props: any) => {
   const [isSuccessAlert, setIsSuccessAlert] = useState(false);
   const [isDeleteAlert, setIsDeleteAlert] = useState(false);
   const [isDeletingAlert, setIsDeletingAlert] = useState(false);
-  const id = props.location.state.id;
-
-  useEffect(() => {
-    axios
-      .get(`${productionBackendURL}/api/v1/todos/${id}`, {
-        headers: headerData,
-      })
-      .then((resp) => {
-        setItem(resp.data.data.attributes);
-      });
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -103,7 +93,7 @@ const TodoEdit = (props: any) => {
     e.preventDefault();
     axios
       .put(
-        `${productionBackendURL}/api/v1/todos/${id}`,
+        `${productionBackendURL}/api/v1/todos/${item.id}`,
         { todo: item },
         {
           headers: headerData,
@@ -128,12 +118,10 @@ const TodoEdit = (props: any) => {
     e.preventDefault();
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
-    axios
-      .delete(`${productionBackendURL}/api/v1/todos/${id}`, {
-        headers: headerData,
-        data: item,
-      })
-      .then((resp) => {});
+    axios.delete(`${productionBackendURL}/api/v1/todos/${item.id}`, {
+      headers: headerData,
+      data: item,
+    });
     setTimeout(() => {
       setIsDeletingAlert(false);
       history.push('/home');
@@ -211,7 +199,7 @@ const TodoEdit = (props: any) => {
             onChange={(e) => {
               setStartTime(e.target.value);
             }}
-            value={formatLocalTime(item.start_time)}
+            value={startTime}
           />
         </div>
         <br />
@@ -229,7 +217,7 @@ const TodoEdit = (props: any) => {
             onChange={(e) => {
               setEndTime(e.target.value);
             }}
-            value={formatLocalTime(item.end_time)}
+            value={endTime}
           />
         </div>
         <br />

@@ -59,25 +59,8 @@ const Todos: React.FC<Props> = ({
   const [isActiveSearchCalendar, setIsActiveSearchCalendar] = useState(false);
   const [error, setError] = useState(false);
 
-  // const toggleCheckbox = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //   e.preventDefault();
-  //   const id = (e.target as HTMLElement).getAttribute('id');
-  //   const todo = items!.filter((item) => item.id === id);
-  //   const isCompleted = todo[0].attributes.is_completed;
-  //   const toggle_completed = !isCompleted;
-  //   let changedItem = { id: id, is_completed: toggle_completed };
-
-  //   axios
-  //     .put(
-  //       `${productionBackendURL}/api/v1/todos/${id}`,
-  //       { todo: changedItem },
-  //       {
-  //         headers: headerData,
-  //       }
-  //     )
-  //     .then((res) => setIsUpdate(!isUpdate))
-  //     .catch((err) => setError(true));
-  // };
+  //wait time for http requests
+  const [waitTime, setWaitTime] = useState(0);
 
   const handleDeleteClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -93,15 +76,17 @@ const Todos: React.FC<Props> = ({
     setIsDeleteAlert(false);
     setIsDeletingAlert(true);
     if (Array.isArray(deleteData.id)) {
-      axios
-        .post(
-          `${productionBackendURL}/api/v1/todos/destroy_multiple`,
-          deleteData,
-          {
-            headers: headerData,
-          }
-        )
-        .catch(() => setError(true));
+      setTimeout(() => {
+        axios
+          .post(
+            `${productionBackendURL}/api/v1/todos/destroy_multiple`,
+            deleteData,
+            {
+              headers: headerData,
+            }
+          )
+          .catch(() => setError(true));
+      }, waitTime);
     } else {
       axios
         .delete(`${productionBackendURL}/api/v1/todos/${deleteData.id}`, {
@@ -168,7 +153,16 @@ const Todos: React.FC<Props> = ({
               <Link
                 to={{
                   pathname: `/todo/edit/${todo.attributes.id}`,
-                  state: { id: todo.attributes.id },
+                  state: {
+                    task: todo.attributes.task,
+                    description: todo.attributes.description,
+                    category: todo.attributes.category,
+                    start_time: todo.attributes.start_time,
+                    end_time: todo.attributes.end_time,
+                    is_completed: todo.attributes.is_completed,
+                    is_priority: todo.attributes.is_priority,
+                    id: todo.attributes.id,
+                  },
                 }}
                 key={todo.id}
                 className='todolist-items'
@@ -186,24 +180,13 @@ const Todos: React.FC<Props> = ({
                 <div className='todolist-icons-container'>
                   {todo.attributes.is_priority && <PriorityIcon />}
                   <CheckboxTicked
-                    // toggleCheckbox={toggleCheckbox}
                     id={todo.id}
                     isCompleted={todo.attributes.is_completed}
                     setError={setError}
+                    waitTime={waitTime}
+                    setWaitTime={setWaitTime}
+                    items={items}
                   />
-                  {/* {todo.attributes.is_completed ? (
-                    <CheckboxTicked
-                      toggleCheckbox={toggleCheckbox}
-                      id={todo.id}
-                      isCompleted={todo.attributes.is_completed}
-                    />
-                  ) : (
-                    <div
-                      className='todolist-checkbox'
-                      onClick={toggleCheckbox}
-                      id={todo.id}
-                    ></div>
-                  )} */}
                   <Trash handleDeleteClick={handleDeleteClick} id={todo.id} />
                 </div>
               </Link>

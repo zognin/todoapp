@@ -53,7 +53,16 @@ const CalendarView: React.FC<Props> = ({ items }) => {
             <Link
               to={{
                 pathname: `/todo/edit/${item.attributes.id}`,
-                state: { id: item.attributes.id },
+                state: {
+                  task: item.attributes.task,
+                  description: item.attributes.description,
+                  category: item.attributes.category,
+                  start_time: item.attributes.start_time,
+                  end_time: item.attributes.end_time,
+                  is_completed: item.attributes.is_completed,
+                  is_priority: item.attributes.is_priority,
+                  id: item.attributes.id,
+                },
               }}
               key={item.attributes.id}
             >
