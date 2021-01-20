@@ -51,8 +51,7 @@ const CheckboxTicked: React.FC<Props> = ({
     let changedItem = { id: id, is_completed: toggle_completed };
     const findItemById = items!.find((item) => item.id === id);
     findItemById!.attributes.is_completed = toggle_completed;
-    setWaitTime(waitTime + 10000);
-    let t0 = performance.now();
+    setWaitTime(waitTime + 3000);
     setTimeout(() => {
       axios
         .put(
@@ -62,7 +61,7 @@ const CheckboxTicked: React.FC<Props> = ({
             headers: headerData,
           }
         )
-        .then(() => setWaitTime(waitTime - 10000))
+        .then(() => setWaitTime(waitTime - 3000))
         .catch(() => setError(true));
     }, waitTime);
   };
