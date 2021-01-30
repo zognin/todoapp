@@ -76,7 +76,7 @@ const CalendarView: React.FC<Props> = ({ items }) => {
   };
 
   return (
-    <div className='calendar-container'>
+    <div className='calendar-container react-calendar__viewContainer '>
       <Calendar
         onChange={(value) => setDate(value)}
         value={date}
