@@ -1,5 +1,5 @@
 export const productionBackendURL =
-  'https://cors-anywhere.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com';
+  'https://mycorsproxy-zognin.herokuapp.com/https://zognin-todoapp-rails.herokuapp.com';
 
 export const developmentBackendURL = 'http://localhost:3000';
 
